@@ -9,7 +9,7 @@ JAM_Base is required for all JAM mods dated past the initial release of this rep
 
 ### Manually
 - Make sure you have all requirements (and all of their dependencies) installed correctly before continuing.
-- Download https://github.com/JustAnotherModder/JAM_Base.zip
+- Download https://github.com/JustAnotherModder/JAM_Base/archive/master.zip
 - Extract the `JAM` folder (and all of its contents) into the `resources` directory inside of your server folder.
 
 ## Installation
