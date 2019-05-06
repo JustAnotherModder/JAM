@@ -13,7 +13,7 @@ JAM_Base is required for all JAM mods dated past the initial release of this rep
 - Extract the `JAM` folder (and all of its contents) into the `resources` directory inside of your server folder.
 
 ## Installation
-- Add this in your server.cfg, below start es_extended and start mysql_async :
+- Add this in your server.cfg, at the very bottom of your resources :
 
 ```
 start JAM
