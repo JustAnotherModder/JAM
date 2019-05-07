@@ -19,3 +19,6 @@ JAM_Base is required for all JAM mods dated past the initial release of this rep
 start JAM
 ```
 
+### Notes
+- Any and all improvements must be send back to the author (me), here on github.
+
