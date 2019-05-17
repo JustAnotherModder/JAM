@@ -13,6 +13,81 @@ JUtils.Keys = {
   ["NENTER"]    = 201,  ["N4"]        = 108,  ["N5"]        = 60,   ["N6"]        = 107,  ["N+"]  = 96,   ["N-"]  = 97,   ["N7"]  = 117,  ["N8"]  = 61,   ["N9"]  = 118
 }
 
+JUtils.Weapons = {
+  Melee = { 
+    'WEAPON_KNIFE', 'WEAPON_KNUCKLE', 'WEAPON_NIGHTSTICK', 'WEAPON_HAMMER', 'WEAPON_BAT', 'WEAPON_GOLFCLUB', 'WEAPON_CROWBAR', 'WEAPON_BOTTLE', 'WEAPON_DAGGER',
+    'WEAPON_HATCHET', 'WEAPON_MACHETE', 'WEAPON_SWITCHBLADE', 'WEAPON_POOLCUE',
+  },
+  Pistol = {
+    'WEAPON_REVOLVER', 'WEAPON_PISTOL', 'WEAPON_PISTOL_MK2', 'WEAPON_COMBATPISTOL', 'WEAPON_APPISTOL', 'WEAPON_PISTOL50', 'WEAPON_SNSPISTOL', 
+    'WEAPON_HEAVYPISTOL','WEAPON_VINTAGEPISTOL', 'WEAPON_DOUBLEACTION', 'WEAPON_REVOLVER_MK2', 'WEAPON_SNSPISTOL_MK2',
+  },
+  SMG = {
+    'WEAPON_MICROSMG','WEAPON_MINISMG','WEAPON_SMG','WEAPON_SMG_MK2','WEAPON_ASSAULTSMG', 'WEAPON_MACHINEPISTOL',
+  },
+  MG = {
+    'WEAPON_MG','WEAPON_COMBATMG','WEAPON_COMBATMG_MK2',
+  },
+  Assault = {
+    'WEAPON_ASSAULTRIFLE', 'WEAPON_ASSAULTRIFLE_MK2', 'WEAPON_CARBINERIFLE', 'WEAPON_CARBINERIFLE_MK2', 'WEAPON_ADVANCEDRIFLE', 'WEAPON_SPECIALCARBINE', 
+    'WEAPON_BULLPUPRIFLE', 'WEAPON_COMPACTRIFLE', 'WEAPON_SPECIALCARBINE_MK2', 'WEAPON_BULLPUPRIFLE_MK2',
+  },
+  Shotgun = {
+     'WEAPON_PUMPSHOTGUN','WEAPON_SAWNOFFSHOTGUN','WEAPON_BULLPUPSHOTGUN','WEAPON_ASSAULTSHOTGUN','WEAPON_HEAVYSHOTGUN','WEAPON_DBSHOTGUN',
+     'WEAPON_PUMPSHOTGUN_MK2',
+  },
+}
+
+function JUtils.DrawTextTemplate(text,x,y,font,scale1,scale2,colour1,colour2,colour3,colour4,wrap1,wrap2,centre,outline,dropshadow1,dropshadow2,dropshadow3,dropshadow4,dropshadow5,edge1,edge2,edge3,edge4,edge5)
+  return {
+    text         =                    "",
+    x            =                    -1,
+    y            =                    -1,
+    font         =  font         or    6,
+    scale1       =  scale1       or  0.5,
+    scale2       =  scale2       or  0.5,
+    colour1      =  colour1      or  255,
+    colour2      =  colour2      or  255,
+    colour3      =  colour3      or  255,
+    colour4      =  colour4      or  255,
+    wrap1        =  wrap1        or  0.0,
+    wrap2        =  wrap2        or  1.0,
+    centre       =  ( type(centre) ~= "boolean" and true or centre ),
+    outline      =  outline      or    1,
+    dropshadow1  =  dropshadow1  or    2,
+    dropshadow2  =  dropshadow2  or    0,
+    dropshadow3  =  dropshadow3  or    0,
+    dropshadow4  =  dropshadow4  or    0,
+    dropshadow5  =  dropshadow5  or    0,
+    edge1        =  edge1        or  255,
+    edge2        =  edge2        or  255,
+    edge3        =  edge3        or  255,
+    edge4        =  edge4        or  255,
+    edge5        =  edge5        or  255,
+  }
+end
+
+function JUtils.DrawText(t)
+  if not t or not t.text or t.text == "" or t.x == -1 or t.y == -1
+  then return false
+  end
+  -- Setup Text
+  SetTextFont (t.font)
+  SetTextScale (t.scale1, t.scale2)
+  SetTextColour (t.colour1,t.colour2,t.colour3,t.colour4)
+  SetTextWrap (t.wrap1,t.wrap2)
+  SetTextCentre (t.centre)
+  SetTextOutline (t.outline)
+  SetTextDropshadow (t.dropshadow1,t.dropshadow2,t.dropshadow3,t.dropshadow4,t.dropshadow5)
+  SetTextEdge (t.edge1,t.edge2,t.edge3,t.edge4,t.edge5)
+  SetTextEntry ("STRING")
+
+  -- Draw Text
+  AddTextComponentSubstringPlayerName (t.text)
+  DrawText (t.x,t.y)
+  return true
+end
+
 function JUtils.PointOnSphere(alt,azu,radius,orgX,orgY,orgZ)
   local toradians = 0.017453292384744
   alt,azu,radius,orgX,orgY,orgZ = ( tonumber(alt or 0) or 0 ) * toradians, ( tonumber(azu or 0) or 0 ) * toradians, tonumber(radius or 0) or 0, tonumber(orgX or 0) or 0, tonumber(orgY or 0) or 0, tonumber(orgZ or 0) or 0
@@ -66,7 +141,7 @@ function JUtils.GetXYDist(x1,y1,z1,x2,y2,z2)
   return math.sqrt(  ( (x1 or 0) - (x2 or 0) )*(  (x1 or 0) - (x2 or 0) )+( (y1 or 0) - (y2 or 0) )*( (y1 or 0) - (y2 or 0) )+( (z1 or 0) - (z2 or 0) )*( (z1 or 0) - (z2 or 0) )  )
 end
 
-function JUtils.GetV2Dist(v1, v2)
+function JUtils:GetV2Dist(v1, v2)
   if not v1 or not v2 or not v1.x or not v2.x or not v1.y or not v2.y then return 0; end
   return math.sqrt( ( (v1.x or 0) - (v2.x or 0) )*(  (v1.x or 0) - (v2.x or 0) )+( (v1.y or 0) - (v2.y or 0) )*( (v1.y or 0) - (v2.y or 0) ) )
 end
@@ -77,40 +152,28 @@ function JUtils:GetVecDist(v1,v2)
 end
 
 function JUtils.GetCoordsInFrontOfCam(...)
-  local unpack   = table.unpack
-  local coords,direction    = GetGameplayCamCoord(), JUtils.RotationToDirection()
-  local inTable  = {...}
-  local retTable = {}
-
-  if ( #inTable == 0 ) or ( inTable[1] < 0.000001 ) then inTable[1] = 0.000001 ; end
-
-  for k,distance in pairs(inTable) do
-    if ( type(distance) == "number" )
-    then
-      if    ( distance == 0 )
-      then
-        retTable[k] = coords
-      else
-        retTable[k] =
-          vector3(
-            coords.x + ( distance*direction.x ),
-            coords.y + ( distance*direction.y ),
-            coords.z + ( distance*direction.z )
-          )
-      end
+    local function Distance(v1,v2) if not v1 or not v1.x then return 0; end; v2 = v2 or vector3(0,0,0); return math.sqrt(  ( (v1.x or 0) - (v2.x or 0) )*(  (v1.x or 0) - (v2.x or 0) )+( (v1.y or 0) - (v2.y or 0) )*( (v1.y or 0) - (v2.y or 0) )+( (v1.z or 0) - (v2.z or 0) )*( (v1.z or 0) - (v2.z or 0) )  );end;
+    local coords      = GetGameplayCamCoord()
+    local rot         = GetGameplayCamRot(2)
+    local direction   = vector3(( math.sin(rot.z*(3.141593/180))*-1)*math.abs(math.cos(rot.x)), math.cos(rot.z*(3.141593/180))*math.abs(math.cos(rot.x)), math.sin(rot.x*(3.141593/180)))
+    local distanceMod = Distance((coords-GetEntityCoords(PlayerPedId(),false) or vector3(0,0,0)))
+    local retTable    = {}
+    if   ( select("#",...) == 0 ) then return vector3( coords.x + ( 1*direction.x ), coords.y + ( 1*direction.y ), coords.z + ( 1*direction.z ) ) ; end
+    for k = 1,select("#",...) do
+        local distance = ( select(k,...) ) + distanceMod
+        if ( type(distance) == "number" )
+        then
+            if    ( distance == 0 )
+            then  retTable[k] = coords
+            else  retTable[k] = vector3(coords.x+(distance*direction.x),coords.y+(distance*direction.y),coords.z+(distance*direction.z))
+            end
+        end
     end
-  end
-  return unpack(retTable)
+    return unpack(retTable)
 end
 
 function JUtils.RotationToDirection(rot)
-  if     ( rot == nil ) then rot = GetGameplayCamRot(2);  end
-  local  rotZ = rot.z  * ( 3.141593 / 180.0 )
-  local  rotX = rot.x  * ( 3.141593 / 180.0 )
-  local  c = math.cos(rotX);
-  local  multXY = math.abs(c)
-  local  res = vector3( ( math.sin(rotZ) * -1 )*multXY, math.cos(rotZ)*multXY, math.sin(rotX) )
-  return res
+  return vector3(( math.sin(rot.z*(3.141593/180))*-1)*math.abs(math.cos(rot.x)), math.cos(rot.z*(3.141593/180))*math.abs(math.cos(rot.x)), math.sin(rot.x*(3.141593/180)))
 end
 
 function JUtils:LoadModelTable(table)

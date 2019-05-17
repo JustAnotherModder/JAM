@@ -7,7 +7,7 @@ JAM.Testing = false
 
 Citizen.CreateThread(function(...)
 	while not ESX or not JAM.ESX do 
-		Citizen.Wait(0)
+		Citizen.Wait(100)
 		TriggerEvent('esx:getSharedObject', function(obj) JAM.ESX = obj; ESX = obj; end)
 	end
 
