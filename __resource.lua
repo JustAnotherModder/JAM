@@ -7,27 +7,27 @@ client_scripts {
 	'JAM_Utilities.lua',
 
 	-- Garage
-	--'JAM_Garage/JAM_Garage_Config.lua',
-	--'JAM_Garage/JAM_Garage_Client.lua',	
+	'JAM_Garage/JAM_Garage_Config.lua',
+	'JAM_Garage/JAM_Garage_Client.lua',	
 
 	-- Commands
-	--'JAM_Commands/JAM_Commands.lua',
+	'JAM_Commands/JAM_Commands.lua',
 
 	-- SafeCracker
-	--'JAM_SafeCracker/JAM_SafeCracker_Config.lua',
-	--'JAM_SafeCracker/JAM_SafeCracker_Client.lua',
+	'JAM_SafeCracker/JAM_SafeCracker_Config.lua',
+	'JAM_SafeCracker/JAM_SafeCracker_Client.lua',
 
 	-- Drugs
-	--'JAM_Drugs/JAM_Drugs_Config.lua',
-	--'JAM_Drugs/JAM_Drugs_Client.lua',	
+	'JAM_Drugs/JAM_Drugs_Config.lua',
+	'JAM_Drugs/JAM_Drugs_Client.lua',	
 
 	-- Race Mod
-	--'JAM_RaceMod/JAM_RaceMod_Config.lua',
-	--'JAM_RaceMod/JAM_RaceMod_Client.lua',
+	'JAM_RaceMod/JAM_RaceMod_Config.lua',
+	'JAM_RaceMod/JAM_RaceMod_Client.lua',
 
 	-- Stuff
-	--'JAM_Stuff/JAM_Stuff_Client.lua',
-	--'JAM_Stuff/JAM_HudHider_Client.lua',
+	'JAM_Stuff/JAM_Stuff_Client.lua',
+	'JAM_Stuff/JAM_HudHider_Client.lua',
 
 	-- Items
 	--'JAM_Items/JAM_SecurityCamera_Client.lua',
@@ -38,8 +38,8 @@ client_scripts {
 	--'JAM_Items/JAM_NightVision_Client.lua',
 
 	-- Teleport
-	--'JAM_Teleport/JAM_Teleport_Config.lua',
-	--'JAM_Teleport/JAM_Teleport_Client.lua',	
+	'JAM_Teleport/JAM_Teleport_Config.lua',
+	'JAM_Teleport/JAM_Teleport_Client.lua',	
 }
 
 server_scripts {	
@@ -52,20 +52,20 @@ server_scripts {
 	'@mysql-async/lib/MySQL.lua',
 
 	-- Garage
-	--'JAM_Garage/JAM_Garage_Config.lua',
-	--'JAM_Garage/JAM_Garage_Server.lua',
+	'JAM_Garage/JAM_Garage_Config.lua',
+	'JAM_Garage/JAM_Garage_Server.lua',
 
 	-- SafeCracker
-	--'JAM_SafeCracker/JAM_SafeCracker_Config.lua',
-	--'JAM_SafeCracker/JAM_SafeCracker_Server.lua',
+	'JAM_SafeCracker/JAM_SafeCracker_Config.lua',
+	'JAM_SafeCracker/JAM_SafeCracker_Server.lua',
 
 	-- Drugs
-	--'JAM_Drugs/JAM_Drugs_Config.lua',
-	--'JAM_Drugs/JAM_Drugs_Server.lua',	
+	'JAM_Drugs/JAM_Drugs_Config.lua',
+	'JAM_Drugs/JAM_Drugs_Server.lua',	
 
 	-- Race Mod
-	--'JAM_RaceMod/JAM_RaceMod_Config.lua',
-	--'JAM_RaceMod/JAM_RaceMod_Server.lua',
+	'JAM_RaceMod/JAM_RaceMod_Config.lua',
+	'JAM_RaceMod/JAM_RaceMod_Server.lua',
 
 	-- Items
 	--'JAM_Items/JAM_SecurityCamera_Server.lua',
@@ -76,6 +76,6 @@ server_scripts {
 
 files {	
 	-- Safecracker
-	--'JAM_SafeCracker/LockPart1.png',
-	--'JAM_SafeCracker/LockPart2.png',
+	'JAM_SafeCracker/LockPart1.png',
+	'JAM_SafeCracker/LockPart2.png',
 }

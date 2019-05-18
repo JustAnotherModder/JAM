@@ -3,7 +3,7 @@ JAM = {}
 TriggerEvent('esx:getSharedObject', function(obj) JAM.ESX = obj; ESX = obj; end)
 AddEventHandler('onMySQLReady', function(...) JAM.SQLReady = true; end)
 
-JAM.Testing = false
+JAM.Testing = true
 
 Citizen.CreateThread(function(...)
 	while not ESX or not JAM.ESX do 
