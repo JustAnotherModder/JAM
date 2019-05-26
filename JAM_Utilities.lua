@@ -297,3 +297,23 @@ function JUtils.InRange(val, target, range)
   else return false; end
 end
 
+math.pow = math.pow or function(n,p) return (n or 1)^(p or 1) ; end
+function JUtils:Round(val, scale)
+    val,scale = val or 0, scale or 0
+    return (
+      val < 0 and  math.floor((math.abs(val*math.pow(10,scale))+0.5))*math.pow(10,((scale)*-1))*(-1)
+               or  math.floor((math.abs(val*math.pow(10,scale))+0.5))*math.pow(10,((scale)*-1))
+    )
+end
+
+function JUtils:GetKeyPressed(key)
+  if not key then return false; end
+  if (IsDisabledControlJustPressed(0, self.Keys[key]) or IsControlJustPressed(0, self.Keys[key])) then return true
+  else return false; end
+end
+
+function JUtils:GetKeyHeld(key)
+  if not key then return false; end
+  if (IsDisabledControlPressed(0, self.Keys[key]) or IsControlPressed(0, self.Keys[key])) then return true
+  else return false; end
+end
