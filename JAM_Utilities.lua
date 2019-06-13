@@ -4,7 +4,7 @@ JUtils = JAM.Utilities
 JUtils.Keys = {
   ["ESC"]       = 322,  ["F1"]        = 288,  ["F2"]        = 289,  ["F3"]        = 170,  ["F5"]  = 166,  ["F6"]  = 167,  ["F7"]  = 168,  ["F8"]  = 169,  ["F9"]  = 56,   ["F10"]   = 57, 
   ["~"]         = 243,  ["1"]         = 157,  ["2"]         = 158,  ["3"]         = 160,  ["4"]   = 164,  ["5"]   = 165,  ["6"]   = 159,  ["7"]   = 161,  ["8"]   = 162,  ["9"]     = 163,  ["-"]   = 84,   ["="]     = 83,   ["BACKSPACE"]   = 177, 
-  ["TAB"]       = 37,   ["Q"]         = 44,   ["W"]         = 32,   ["E"]         = 38,   ["R"]   = 45,   ["T"]   = 245,  ["Y"]   = 246,  ["U"]   = 303,  ["P"]   = 199,  ["["]     = 39,   ["]"]   = 40,   ["ENTER"]   = 18,
+  ["TAB"]       = 37,   ["Q"]         = 44,   ["W"]         = 32,   ["E"]         = 38,   ["R"]   = 45,   ["T"]   = 245,  ["Y"]   = 246,  ["U"]   = 303,  ["P"]   = 199,  ["["]     = 116,  ["]"]   = 40,   ["ENTER"]   = 18,
   ["CAPS"]      = 137,  ["A"]         = 34,   ["S"]         = 8,    ["D"]         = 9,    ["F"]   = 23,   ["G"]   = 47,   ["H"]   = 74,   ["K"]   = 311,  ["L"]   = 182,
   ["LEFTSHIFT"] = 21,   ["Z"]         = 20,   ["X"]         = 73,   ["C"]         = 26,   ["V"]   = 0,    ["B"]   = 29,   ["N"]   = 249,  ["M"]   = 244,  [","]   = 82,   ["."]     = 81,
   ["LEFTCTRL"]  = 36,   ["LEFTALT"]   = 19,   ["SPACE"]     = 22,   ["RIGHTCTRL"] = 70, 
@@ -139,6 +139,20 @@ function JUtils:FindNearestZone(position, table)
   return closestZone,closestAction,closestDist,closestCoords
 end
 
+function string.tohex(s,chunkSize)
+  s = ( type(s) == "string" and s or type(s) == "nil" and "" or tostring(s) )
+  chunkSize = chunkSize or 2048
+  local rt = {}
+  string.tohex_sformat   = ( string.tohex_sformat   and string.tohex_chunkSize and string.tohex_chunkSize == chunkSize and string.tohex_sformat ) or string.rep("%02X",math.min(#s,chunkSize))
+  string.tohex_chunkSize = ( string.tohex_chunkSize and string.tohex_chunkSize == chunkSize and string.tohex_chunkSize or chunkSize )
+  for i = 1,#s,chunkSize do
+    rt[#rt+1] = string.format(string.tohex_sformat:sub(1,(math.min(#s-i+1,chunkSize)*4)),s:byte(i,i+chunkSize-1))
+  end
+  if      #rt == 1 then return rt[1]
+  else    return table.concat(rt,"")
+  end
+end
+
 function JUtils.GetXYDist(x1,y1,z1,x2,y2,z2)
   return math.sqrt(  ( (x1 or 0) - (x2 or 0) )*(  (x1 or 0) - (x2 or 0) )+( (y1 or 0) - (y2 or 0) )*( (y1 or 0) - (y2 or 0) )+( (z1 or 0) - (z2 or 0) )*( (z1 or 0) - (z2 or 0) )  )
 end
@@ -176,6 +190,27 @@ end
 
 function JUtils.RotationToDirection(rot)
   return vector3(( math.sin(rot.z*(3.141593/180))*-1)*math.abs(math.cos(rot.x)), math.cos(rot.z*(3.141593/180))*math.abs(math.cos(rot.x)), math.sin(rot.x*(3.141593/180)))
+end
+
+function JUtils.LoadModel(model, wait)
+  local hk = JUtils.GetHashKey(model)
+  if wait then
+    while not HasModelLoaded(hk) do 
+      Citizen.Wait(0)
+      RequestModel(hk)
+    end
+  else
+    RequestModel(hk)
+  end
+  return true
+end
+
+function JUtils.ReleaseModel(model)
+  local hk = JUtils.GetHashKey(model)
+  if HasModelLoaded(hk) then 
+    SetModelAsNoLongerNeeded(hk)
+  end
+  return true
 end
 
 function JUtils:LoadModelTable(table)
@@ -293,7 +328,7 @@ function JUtils.NetworkControlDoor(obj)
 end
 
 function JUtils.InRange(val, target, range)
-  if target + range < val and target - range > val then return true;
+  if target + range > val and target - range < val then return true;
   else return false; end
 end
 
